@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script> 
+</head>
+<body>
+  <div class="centered">
+    <img src="img/logoWhite-2-1.png">
+    <form id="myForm">
+      Select Contract:
+      <p></p>
+      <select id="selectNumber">
+          <option selected>Select Contract</option>
+          <script>
+              var myArray = new Array("1", "2", "3", "4", "5");
+              for(i=0; i<myArray.length; i++) {  
+                  document.write('<option value="' + myArray[i] +'">' + myArray[i] + '</option>');
+              }         
+          </script>
+      </select>
+      <p></p>
+      Employee First and Last Name:
+      <p></p>
+      <input type="text" id="employname">
+      <input type="hidden" id="txtvalue">
+    </form>
+    <p></p>
+    <button id="upload_widget" class="cloudinary-button">Upload files</button>
+  </div>
+
+
+<script type="text/javascript">
+document.getElementById("selectNumber").addEventListener("onselect",function(){ddlselect()});
+document.getElementById("employname").addEventListener("input",function(){ddlselect()});
+document.getElementById("txtvalue").addEventListener("change",function(){
+var text = document.getElementById("txtvalue").value;
+document.getElementById("txtvalue").value = text;
+});
+document.getElementById("upload_widget").addEventListener("click", function(){ uploadcheck() }, false);
+
+async function ddlselect(){
+var d = document.getElementById("selectNumber");
+var e = document.getElementById("employname").value;
+var displaytext = d.options[d.selectedIndex].text;
+var mytxt = (displaytext + " - " + e);
+document.getElementById("txtvalue").value=mytxt;
+console.log(mytxt);
+return mytxt;
+}
+
+function uploadcheck() {
+var myWidget = cloudinary.createUploadWidget({
+  cloudName: 'shinakuma', 
+  uploadPreset: 'lbdfks7r',
+  multiple: false,
+  publicId: document.getElementById("txtvalue").value,
+  sources: ['local']}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+      console.log('Done! Here is the image info: ', result.info); 
+    }
+  }
+)
+var a = document.getElementById("employname").value
+if (a == "" || a == null || a.length<5) {
+  alert("Please fill in the missing or incomplete employee name");
+}
+else {
+  myWidget.open();
+}
+
+};
+</script>
+</body>
+
+
