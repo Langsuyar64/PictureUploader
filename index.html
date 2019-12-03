@@ -5,71 +5,35 @@
 </head>
 <body>
   <div class="centered">
-    <img src="img/logoWhite-2-1.png">
+    <img src="img/TClogobw.jpg" width="250px" height="170px">
+    <p></p>
+    <b style="margin-left: 10%; font-size:large;">Employee Capture Information</b> 
+    <p></p>
     <form id="myForm">
       Select Contract:
       <p></p>
-      <select id="selectNumber">
+      <select class="combobox" id="selectNumber">
           <option selected>Select Contract</option>
           <script>
-              var myArray = new Array("1", "2", "3", "4", "5");
+              var myArray = new Array("Adam Phones Ltd","Aistemos","American Hardwood Export Council Europe","Audience2Media Ltd","Balham Dental Care","BBOXX Ltd","Believe Distribution Services","Blue Cube Bars","Cambridge Healthcare Research","Casablanca Clothing Ltd","Castlebrooke Investments Ltd","Client Relationship Consultancy","Concept Fertility Clinic","Contented Brothers","Dam Digital Ltd","DRD Partnership","Eat Work Art Ltd: Netil House","Ellis Williams Architects Ltd","Embassy of Maldives","Employee Republic","Eudelo Enhance Ltd","Everyday Church - Wimbledon","Fornova","Foundry Lighting & Design","Garrison","Goodman Gallery UK","GT Gettaxi (UK) Limited","Heatherleys","Impact International","Incomm","Ishka Ltd","Janus International Europe Ltd","Karma Dental Care","Kemet Global","Lawson Conner Services Ltd","Leroy Shoreditch","Les Mills","Lexhag VFX Ltd","Locked In Music Limited","Long Tall Sally","Martin Brudnizki Design Studio","Mash and Kimber Trust, c/o Kempton Carr Croft","Matthew Clark Bibendum Limited: 109 Regents Park","Maverick Advertising & Design (Carnival House)","MCD Global Franchising Limited","Metal Edit","Mundial Studio","MyMiniFactory","Noah Media Group","Oasis HR Ltd","Operation Smile","Orion Engineering Services Ltd","Pozzoni Architecture Limited","Professional Energy Services Limited","Quadrum","RG + P","Rhombus Private Capital Limited","Silver Door","Simple Stream","SIX3NINE","Sliide","Sustainable Workspaces : 25 Lavington Street","Sustainable Workspaces : Bridges","TAMOCO Ltd","Upright MRI","White Dark","Wolf & Badger Studios","Zsah Ltd");
               for(i=0; i<myArray.length; i++) {  
                   document.write('<option value="' + myArray[i] +'">' + myArray[i] + '</option>');
               }         
           </script>
       </select>
       <p></p>
-      Employee First and Last Name:
+      Employee Full Name:
       <p></p>
-      <input type="text" id="employname">
+      <input type="text" id="employname" style="width: 80%; height: 25px;">
       <input type="hidden" id="txtvalue">
     </form>
     <p></p>
     <button id="upload_widget" class="cloudinary-button">Upload files</button>
+    <p>Pictures have to be taken against a white wall, with the photo id/passport document in front, to confirm they are the actual employees.</p>
   </div>
 
 
-<script type="text/javascript">
-document.getElementById("selectNumber").addEventListener("onselect",function(){ddlselect()});
-document.getElementById("employname").addEventListener("input",function(){ddlselect()});
-document.getElementById("txtvalue").addEventListener("change",function(){
-var text = document.getElementById("txtvalue").value;
-document.getElementById("txtvalue").value = text;
-});
-document.getElementById("upload_widget").addEventListener("click", function(){ uploadcheck() }, false);
-
-async function ddlselect(){
-var d = document.getElementById("selectNumber");
-var e = document.getElementById("employname").value;
-var displaytext = d.options[d.selectedIndex].text;
-var mytxt = (displaytext + " - " + e);
-document.getElementById("txtvalue").value=mytxt;
-console.log(mytxt);
-return mytxt;
-}
-
-function uploadcheck() {
-var myWidget = cloudinary.createUploadWidget({
-  cloudName: 'shinakuma', 
-  uploadPreset: 'lbdfks7r',
-  multiple: false,
-  publicId: document.getElementById("txtvalue").value,
-  sources: ['local']}, (error, result) => { 
-    if (!error && result && result.event === "success") { 
-      console.log('Done! Here is the image info: ', result.info); 
-    }
-  }
-)
-var a = document.getElementById("employname").value
-if (a == "" || a == null || a.length<5) {
-  alert("Please fill in the missing or incomplete employee name");
-}
-else {
-  myWidget.open();
-}
-
-};
-</script>
+<script src="/js/uploader.js" type="text/javascript"></script>
 </body>
 
 
